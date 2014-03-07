@@ -149,17 +149,17 @@ fi
 #
 # Generate the sanity/QC reports
 #
-#echo "" >> ${LOG_DIAG}
-#date >> ${LOG_DIAG}
-#echo "Generate the sanity/QC reports" | tee -a ${LOG_DIAG}
-#${RVLOAD_QC_SH} ${INPUT_FILE_DEFAULT} ${RUNTYPE} 2>&1 >> ${LOG_DIAG}
-#STAT=$?
-#checkStatus ${STAT} "QC reports"
-#if [ ${STAT} -eq 1 ]
-#then
-#    shutDown
-#    exit 1
-#fi
+echo "" >> ${LOG_DIAG}
+date >> ${LOG_DIAG}
+echo "Generate the sanity/QC reports" | tee -a ${LOG_DIAG}
+${RVLOAD_QC_SH} ${INPUT_FILE_DEFAULT} ${RUNTYPE} 2>&1 >> ${LOG_DIAG}
+STAT=$?
+checkStatus ${STAT} "QC reports"
+if [ ${STAT} -eq 1 ]
+then
+    shutDown
+    exit 1
+fi
 
 #
 # run vocabulary load

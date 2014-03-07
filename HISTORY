@@ -1,3 +1,11 @@
+TAG: rvload-5-1-7-2
+DATE: 03/07/2014
+STAFF: sc
+CHANGES:
+1) added bin/runRvQC bin/rvQC.sh bin/rvQC.py
+2) rvload.config.default - added OBO_FILE_VERSION=1.2
+2) rvload.sh - added call to QC
+
 TAG: rvload-5-1-7-1
 DATE: 03/05/2014
 STAFF: sc
