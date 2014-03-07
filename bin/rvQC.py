@@ -75,7 +75,6 @@ USAGE = 'Usage: rvQC.py  inputFile'
 #
 #  GLOBALS
 #
-liveRun = os.environ['LIVE_RUN']
 
 # Report file names
 sanityRptFile = os.environ['SANITY_RPT']

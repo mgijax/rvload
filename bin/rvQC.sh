@@ -66,14 +66,20 @@ CONFIG=`cd ${BINDIR}/..; pwd`/rvload.config
 USAGE='Usage: rvQC.sh  filename'
 
 # this is a sanity check only run, set LIVE_RUN accordingly
-LIVE_RUN=0; export LIVE_RUN
+#LIVE_RUN=0; export LIVE_RUN
 
 #
-# Make sure an input file was passed to the script. 
+# Make sure an input file was passed to the script. If the optional "live"
+# argument is given, that means that the output files are located in the
+# /data/loads/... directory, not in the current directory.
 #
 if [ $# -eq 1 ]
 then
     INPUT_FILE=$1
+elif [ $# -eq 2 -a "$2" = "live" ]
+then
+    INPUT_FILE=$1
+    LIVE_RUN=1
 else
     echo ${USAGE}; exit 1
 fi
