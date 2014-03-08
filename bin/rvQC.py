@@ -244,8 +244,13 @@ def runSanityChecks ():
 		invalidIDList.append(id)
 	    else:
 		prefix, suffix = string.split(id, ':')
-		if prefix != 'RV' or len(suffix) != 7:
+		if prefix != 'RV' or len(suffix) != 7  :
 		    invalidIDList.append(id)
+		else:
+		    try:
+			x = int(suffix)
+                    except:
+			invalidIDList.append(id)
 
 	# check synonymTypes
 	if id == 'RV:0000000':
