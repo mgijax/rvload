@@ -66,7 +66,7 @@ CONFIG=`cd ${BINDIR}/..; pwd`/rvload.config
 USAGE='Usage: rvQC.sh  filename'
 
 # this is a sanity check only run, set LIVE_RUN accordingly
-#LIVE_RUN=0; export LIVE_RUN
+LIVE_RUN=0; export LIVE_RUN
 
 #
 # Make sure an input file was passed to the script. If the optional "live"
@@ -96,6 +96,16 @@ else
 fi
 
 #
+# If this is not a "live" run, the output, log and report files should reside
+# in the current directory, so override the default settings.
+#
+if [ ${LIVE_RUN} -eq 0 ]
+then
+	SANITY_RPT=${CURRENTDIR}/`basename ${SANITY_RPT}
+	QC_LOGFILE=${CURRENTDIR}/`basename ${QC_LOGFILE}`
+
+fi
+#
 # Make sure the input file exists (regular file or symbolic link).
 #
 if [ "`ls -L ${INPUT_FILE} 2>/dev/null`" = "" ]
@@ -103,9 +113,6 @@ then
     echo "Missing input file: ${INPUT_FILE}"
     exit 1
 fi
-
-QC_LOGFILE=${CURRENTDIR}/`basename ${QC_LOGFILE}`
-SANITY_RPT=${CURRENTDIR}/`basename ${SANITY_RPT}`
 
 #
 # Initialize the log file.
