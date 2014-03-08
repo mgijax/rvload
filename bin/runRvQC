@@ -19,8 +19,8 @@ usage ()
     exit 1
 }
 
-#LOADDIR=/usr/local/mgi/live/dataload/rvload
-LOADDIR=/home/sc/work/dataload/rvload
+LOADDIR=/usr/local/mgi/live/dataload/rvload
+#LOADDIR=/home/sc/work/dataload/rvload
 WRAPPER=${LOADDIR}/bin/rvQC.sh
 
 #
