@@ -63,7 +63,7 @@ import string
 import re
 import mgi_utils
 import db
-
+import Set
 #
 #  CONSTANTS
 #
@@ -241,34 +241,47 @@ def runSanityChecks ():
 	    id = currentStanzaDict['id'][0]
 	    #print id
 	    if id.find(':') != 2:
-		invalidIDList.append(i)
+		invalidIDList.append(id)
 	    else:
 		prefix, suffix = string.split(id, ':')
 		if prefix != 'RV' or len(suffix) != 7:
-		    invalidIDList.append(i)
+		    invalidIDList.append(id)
 
 	# check synonymTypes
 	if id == 'RV:0000000':
 	    continue
 	hasSyn = currentStanzaDict.has_key('synonym')
 	if not hasSyn:
-	    invalidSynList.append('stanza without synonyms')
-	else:
-	    synList = currentStanzaDict['synonym']
-	    for s in synList:
-		# RELATED
-		syn = re.split (' ', re.split ('"', s)[2].lstrip())[0]
-		# RELATED FORWARD
-		syn = syn + ' ' + re.split (' ', re.split ('"', s)[2].lstrip())[1]
-	 	if syn == 'RELATED FORWARD':
-		    #print 'hasForward'
+	    invalidSynList.append('%s - stanza w/o synonyms' % id)
+	    continue
+	synList = currentStanzaDict['synonym']
+	# list of synonym values to make sure all uniq
+	frSynList = []
+	for s in synList:
+	    # RELATED
+	    type = re.split (' ', re.split ('"', s)[2].lstrip())[0]
+	    # RELATED FORWARD
+	    type = type + ' ' + re.split (' ', re.split ('"', s)[2].lstrip())[1]
+
+	    if type == 'RELATED FORWARD':
+		if not hasForward:
 		    hasForward = 1
-		elif syn == "RELATED REVERSE":
-		    #print 'hasReverse'
+		    frSynList.append(re.split ('"', s)[1])
+		else:
+		    invalidSynList.append('%s - stanza with multi FORWARD' % id)
+		    continue
+	    elif type == "RELATED REVERSE":
+		if not hasReverse:
 		    hasReverse = 1
-	    if not (hasForward and hasReverse):
-		#print 'missing forward or reverse %s' % id
-		invalidSynList.append(id)
+		    frSynList.append(re.split ('"', s)[1])
+		else:
+		    invalidSynList.append('%s - stanza with multi REVERSE' % id)
+		    continue
+	if not (hasForward and hasReverse):
+	    #print 'missing forward or reverse %s' % id
+	    invalidSynList.append('%s - stanza missing FORWARD or REVERSE' % id)
+	elif len(set(frSynList)) != 2:
+	    invalidSynList.append('%s - FORWARD and REVERSE values identical' % id)
     if len(invalidIDList) > 0:
 	hasSanityErrors = 1
 	fpSanityRpt.write('Incorrectly formatted RV IDs %s%s'  % \
