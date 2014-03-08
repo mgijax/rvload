@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 #
 #  rvQC.sh
 ###########################################################################
@@ -101,7 +101,7 @@ fi
 #
 if [ ${LIVE_RUN} -eq 0 ]
 then
-	SANITY_RPT=${CURRENTDIR}/`basename ${SANITY_RPT}
+	SANITY_RPT=${CURRENTDIR}/`basename ${SANITY_RPT}`
 	QC_LOGFILE=${CURRENTDIR}/`basename ${QC_LOGFILE}`
 
 fi
