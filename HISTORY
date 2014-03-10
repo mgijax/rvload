@@ -1,3 +1,9 @@
+TAG: rvload-5-1-7-8
+DATE: 03/10/2014
+STAFF: sc
+CHANGES:
+1) continue when no ':' in RV ID - don't try to split suffix/prefix
+
 TAG: rvload-5-1-7-7
 DATE: 03/10/2014
 STAFF: sc

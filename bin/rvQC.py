@@ -239,20 +239,20 @@ def runSanityChecks ():
 	hasId = currentStanzaDict.has_key('id')
 	if not hasId:
 	    invalidIDs.append('stanza without id')
+	    continue
+	id = currentStanzaDict['id'][0]
+	#print id
+	if id.find(':') != 2:
+	    invalidIDList.append('%s - stanza with invalid primary ID' % id)
+	    continue
+	prefix, suffix = string.split(id, ':')
+	if prefix != 'RV' or len(suffix) != 7  :
+	    invalidIDList.append('%s - stanza with invalid primary ID' % id)
 	else:
-	    id = currentStanzaDict['id'][0]
-	    #print id
-	    if id.find(':') != 2:
+	    try:
+		x = int(suffix)
+	    except:
 		invalidIDList.append('%s - stanza with invalid primary ID' % id)
-	    else:
-		prefix, suffix = string.split(id, ':')
-		if prefix != 'RV' or len(suffix) != 7  :
-		    invalidIDList.append('%s - stanza with invalid primary ID' % id)
-		else:
-		    try:
-			x = int(suffix)
-                    except:
-			invalidIDList.append('%s - stanza with invalid primary ID' % id)
 	hasAltId = currentStanzaDict.has_key('alt_id')
 	#print 'hasAltId: %s' % hasAltId
 	if hasAltId:
@@ -263,7 +263,8 @@ def runSanityChecks ():
 		# factor this out with above - later
 		#print 'id: %s' % id
 		if id.find(':') != 2:
-		    invalidIDList.append('%s - stanza with invalid primary ID' % id)
+		    invalidIDList.append('%s - stanza with invalid alt ID' % id)
+		    continue
 		prefix, suffix = string.split(id, ':')
 		#print 'prefix: %s suffix: %s' % (prefix, suffix)
                 if prefix != 'RV' or len(suffix) != 7  :
