@@ -108,8 +108,7 @@ fi
 #
 if [ ${SERVER_NAME} = "hobbiton" ]
 then
-    chmod -f 755 ${MCVLOAD_QC_SH}
-    chmod -f 755 ${ADD_COLUMNS_SH}
+    chmod -f 755 ${RVLOAD_QC_SH}
 fi
 
 # copy the scripts for curator use into a standard location which exists in

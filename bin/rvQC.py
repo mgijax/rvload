@@ -20,9 +20,8 @@
 #      The following environment variables are set by the configuration
 #      files that are sourced by the wrapper script:
 #
-#          MGI_PUBLICUSER
-#          MGI_PUBPASSWORDFILE
-#          INVALID_TERMID_RPT
+#          SANITY_RPT
+#	   OBO_FILE_VERSION
 #	   
 #      The following environment variable is set by the wrapper script:
 #
@@ -33,7 +32,7 @@
 #
 #  Outputs:
 #
-#      - QC report (${INVALID_TERMID_RPT})
+#      - QC report (${SANITY_RPT})
 #
 #  Exit Codes:
 #
@@ -220,9 +219,12 @@ def runSanityChecks ():
                         currentStanzaDict['tab'] = []
                     currentStanzaDict['tab'].append(lineNoCRT)
                 fieldName = lineStripped[0:i]
+		#print 'fieldame: %s' % fieldName
                 value = lineStripped[i+1:].strip()
+		#print 'value: %s' % value
                 if fieldName not in currentStanzaDict.keys():
                     currentStanzaDict[fieldName] = []
+		#print 'adding value: %s to fieldName: %s' % (value, fieldName)
                 currentStanzaDict[fieldName].append(value)
             else: # add the current stanza to the dict of all obo stanzas
                 allStanzasDict[keyCtr] = currentStanzaDict
@@ -241,20 +243,42 @@ def runSanityChecks ():
 	    id = currentStanzaDict['id'][0]
 	    #print id
 	    if id.find(':') != 2:
-		invalidIDList.append(id)
+		invalidIDList.append('%s - stanza with invalid primary ID' % id)
 	    else:
 		prefix, suffix = string.split(id, ':')
 		if prefix != 'RV' or len(suffix) != 7  :
-		    invalidIDList.append(id)
+		    invalidIDList.append('%s - stanza with invalid primary ID' % id)
 		else:
 		    try:
 			x = int(suffix)
                     except:
-			invalidIDList.append(id)
+			invalidIDList.append('%s - stanza with invalid primary ID' % id)
+	hasAltId = currentStanzaDict.has_key('alt_id')
+	#print 'hasAltId: %s' % hasAltId
+	if hasAltId:
+	    altIdList = currentStanzaDict['alt_id']
+	    #print 'altIdList: %s' % altIdList
+	    # check each alt id for correct format
+	    for id in altIdList:
+		# factor this out with above - later
+		#print 'id: %s' % id
+		if id.find(':') != 2:
+		    invalidIDList.append('%s - stanza with invalid primary ID' % id)
+		prefix, suffix = string.split(id, ':')
+		#print 'prefix: %s suffix: %s' % (prefix, suffix)
+                if prefix != 'RV' or len(suffix) != 7  :
+                    invalidIDList.append('%s - stanza with invalid alt ID' % id)
+                else:
+                    try:
+                        x = int(suffix)
+                    except:
+			#print 'adding %s to invalidIDList' %  id
+                        invalidIDList.append('%s - stanza with invalid alt ID' % id)
 
-	# check synonymTypes
+	# if root id don't check for synonyms (there aren't any)
 	if id == 'RV:0000000':
 	    continue
+	# check synonymTypes
 	hasSyn = currentStanzaDict.has_key('synonym')
 	if not hasSyn:
 	    invalidSynList.append('%s - stanza w/o synonyms' % id)
