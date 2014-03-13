@@ -31,7 +31,7 @@
 #  Exit Codes:
 #
 #      0:  Successful completion
-#      1:  Fatal error occurred
+#      1:  Fatal initialization error occurred
 #      2:  Invalid obo version
 #      3:  Fatal sanity errors
 #
@@ -124,7 +124,7 @@ touch ${LOG}
 #
 # Initialize the report files to make sure the current user can write to them.
 #
-rm -f ${QC_RPT}; >${QC_RPT}
+rm -f ${SANITY_RPT}; >${SANITY_RPT}
 
 #
 # Run sanity checks on EMAPA obo file
@@ -138,7 +138,7 @@ ${RVLOAD_QC}  ${INPUT_FILE}
 STAT=$?
 if [ ${STAT} -eq 1 ]
 then
-    echo "Fatal initialization error. See ${QC_RPT}\n" | tee -a ${LOG}
+    echo "Fatal initialization error. See ${SANITY_RPT}\n" | tee -a ${LOG}
     exit ${STAT}
 fi
 

@@ -235,6 +235,7 @@ def runSanityChecks ():
 	currentStanzaDict = allStanzasDict[s]
 	hasForward = 0
 	hasReverse = 0
+	hasSynValue = 1
 	# check ID format
 	hasId = currentStanzaDict.has_key('id')
 	if not hasId:
@@ -288,6 +289,13 @@ def runSanityChecks ():
 	# list of synonym values to make sure all uniq
 	frSynList = []
 	for s in synList:
+	    #print s
+	    # check for missing syn value
+	    tokens = re.split (' ', s)
+	    if tokens[0].find('"') == -1:
+		hasSynValue = 0
+		invalidSynList.append('%s - stanza with missing synonym value "synonym: %s"' % (id, s))
+		continue
 	    # RELATED
 	    type = re.split (' ', re.split ('"', s)[2].lstrip())[0]
 	    # RELATED FORWARD
@@ -307,10 +315,10 @@ def runSanityChecks ():
 		else:
 		    invalidSynList.append('%s - stanza with multi REVERSE' % id)
 		    continue
-	if not (hasForward and hasReverse):
+	if hasSynValue and not (hasForward and hasReverse):
 	    #print 'missing forward or reverse %s' % id
 	    invalidSynList.append('%s - stanza missing FORWARD or REVERSE' % id)
-	elif len(set(frSynList)) != 2:
+	elif hasSynValue and len(set(frSynList)) != 2:
 	    invalidSynList.append('%s - FORWARD and REVERSE values identical' % id)
     if len(invalidIDList) > 0:
 	hasSanityErrors = 1
