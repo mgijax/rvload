@@ -233,8 +233,8 @@ def runSanityChecks ():
 
     for s in allStanzasDict.keys():
 	currentStanzaDict = allStanzasDict[s]
-	hasForward = 0
-	hasReverse = 0
+	hasOrganizer = 0
+	hasParticipant = 0
 	hasSynValue = 1
 	# check ID format
 	hasId = currentStanzaDict.has_key('id')
@@ -298,28 +298,28 @@ def runSanityChecks ():
 		continue
 	    # RELATED
 	    type = re.split (' ', re.split ('"', s)[2].lstrip())[0]
-	    # RELATED FORWARD
+	    # RELATED ORGANIZER
 	    type = type + ' ' + re.split (' ', re.split ('"', s)[2].lstrip())[1]
 
-	    if type == 'RELATED FORWARD':
-		if not hasForward:
-		    hasForward = 1
+	    if type == 'RELATED ORGANIZER':
+		if not hasOrganizer:
+		    hasOrganizer = 1
 		    frSynList.append(re.split ('"', s)[1])
 		else:
-		    invalidSynList.append('%s - stanza with multi FORWARD' % id)
+		    invalidSynList.append('%s - stanza with multi ORGANIZER' % id)
 		    continue
-	    elif type == "RELATED REVERSE":
-		if not hasReverse:
-		    hasReverse = 1
+	    elif type == "RELATED PARTICIPANT":
+		if not hasParticipant:
+		    hasParticipant = 1
 		    frSynList.append(re.split ('"', s)[1])
 		else:
-		    invalidSynList.append('%s - stanza with multi REVERSE' % id)
+		    invalidSynList.append('%s - stanza with multi PARTICIPANT' % id)
 		    continue
-	if hasSynValue and not (hasForward and hasReverse):
-	    #print 'missing forward or reverse %s' % id
-	    invalidSynList.append('%s - stanza missing FORWARD or REVERSE' % id)
+	if hasSynValue and not (hasOrganizer and hasParticipant):
+	    #print 'missing organizer or participant %s' % id
+	    invalidSynList.append('%s - stanza missing ORGANIZER or PARTICIPANT' % id)
 	elif hasSynValue and len(set(frSynList)) != 2:
-	    invalidSynList.append('%s - FORWARD and REVERSE values identical' % id)
+	    invalidSynList.append('%s - ORGANIZER and PARTICIPANT values identical' % id)
     if len(invalidIDList) > 0:
 	hasSanityErrors = 1
 	fpSanityRpt.write('Incorrectly formatted RV IDs %s%s'  % \
