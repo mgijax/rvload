@@ -6,7 +6,7 @@
 #  Purpose:
 #
 #      This script is a wrapper around the process that does sanity
-#      checks for the EMAPA/EMAPS load
+#      checks for the RV vocabulary load
 #
 #  Usage:
 #
@@ -20,7 +20,7 @@
 #      See the configuration file
 #
 #  Inputs:
-#	EMAPA obo file
+#	RV obo file
 #
 #  Outputs:
 #
@@ -127,7 +127,7 @@ touch ${LOG}
 rm -f ${SANITY_RPT}; >${SANITY_RPT}
 
 #
-# Run sanity checks on EMAPA obo file
+# Run sanity checks on RV obo file
 #
 echo "" >> ${LOG}
 date >> ${LOG}
