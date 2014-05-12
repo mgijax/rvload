@@ -72,7 +72,7 @@ fi
 # the same input file path on hobbiton where the input file is published.
 # The input directory should be locked down to protect the symbolic link.
 #
-if [ ${SERVER_NAME} = "lindon" ]
+if [ ${SERVER_NAME} = "rohan" ]
 then
     rm -f ${INPUT_FILE_DEFAULT}
     ln -s /hobbiton${INPUT_FILE_DEFAULT} ${INPUT_FILE_DEFAULT}
@@ -98,6 +98,11 @@ then
 
     chmod -f 775 ${INPUTDIR}
     chgrp mgi ${INPUTDIR}
+    chmod -f 775 ${OUTPUTDIR}
+    chgrp mgi ${OUTPUTDIR}
+    chmod -f 775 ${LOGDIR}
+    chgrp mgi ${LOGDIR}
+
 fi
 
 #
