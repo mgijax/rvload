@@ -23,10 +23,6 @@
 #          SANITY_RPT
 #	   OBO_FILE_VERSION
 #	   
-#      The following environment variable is set by the wrapper script:
-#
-#          LIVE_RUN
-#
 #  Inputs:
 # 	obo file
 #
@@ -37,8 +33,8 @@
 #  Exit Codes:
 #
 #      0:  Successful completion
-#      1:  An exception occurred
-#      2:  Non-fatal discrepancy errors detected in the input files
+#      1:  Fatal initialization error occurred
+#      2:  If the OBO version is not the one we expect
 #      3:  Fatal discrepancy errors detected in the input files
 #
 #  Assumes:
@@ -49,8 +45,8 @@
 #
 #      1) Validate the arguments to the script.
 #      2) Perform initialization steps.
-#      3) Open the input/output files.
-#      4) Generate the QC reports.
+#      3) Run the sanity checks.
+#      4) close input/output files.
 #
 #  Notes:  None
 #
@@ -61,8 +57,7 @@ import os
 import string
 import re
 import mgi_utils
-import db
-import Set
+
 #
 #  CONSTANTS
 #
@@ -86,8 +81,6 @@ invalidIDList = []
 
 # list of ids with invalid set of synonyms
 invalidSynList = []
-
-timestamp = mgi_utils.date()
 
 # dict representing all anatomical structure stanzas in the obo file
 # Looks like
@@ -123,7 +116,7 @@ def checkArgs ():
 # Purpose: Perform initialization steps.
 # Returns: Nothing
 # Assumes: Nothing
-# Effects: Sets global variables.
+# Effects: opens files
 # Throws: Nothing
 #
 def init ():
@@ -132,7 +125,7 @@ def init ():
 
 
 #
-# Purpose: Open the files.
+# Purpose: Open input and output files.
 # Returns: Nothing
 # Assumes: Nothing
 # Effects: Sets global variables.
@@ -161,7 +154,7 @@ def openFiles ():
 # Purpose: run the sanity checks
 # Returns: Nothing
 # Assumes: Nothing
-# Effects: Nothing
+# Effects: sets global variables, write report to file system
 # Throws: Nothing
 #
 def runSanityChecks ():
@@ -298,7 +291,7 @@ def runSanityChecks ():
 		continue
 	    # RELATED
 	    type = re.split (' ', re.split ('"', s)[2].lstrip())[0]
-	    # RELATED ORGANIZER
+	    # RELATED ORGANIZER/PARTICIPANT
 	    type = type + ' ' + re.split (' ', re.split ('"', s)[2].lstrip())[1]
 
 	    if type == 'RELATED ORGANIZER':
@@ -357,7 +350,5 @@ closeFiles()
 
 if hasSanityErrors == 1 : 
     sys.exit(3)
-#elif nonfatalCount > 0:
-#    sys.exit(2)
 else:
     sys.exit(0)

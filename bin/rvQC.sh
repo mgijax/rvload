@@ -13,7 +13,7 @@
 #      rvQC.sh  filename  
 #
 #      where
-#          filename = path to the input file
+#          filename = full path to the input file
 #
 #  Env Vars:
 #
@@ -45,7 +45,7 @@
 #      ) Validate & source the configuration files to establish the environment.
 #      ) Verify that the input file exists.
 #      ) Initialize the log and report files.
-#      ) Call rvQC.sh to generate the sanity/QC report.
+#      ) Call rvQC.py to generate the sanity/QC report.
 #
 #  Notes:  None
 #
@@ -55,6 +55,8 @@
 #
 #  Date        SE   Change Description
 #  ----------  ---  -------------------------------------------------------
+#
+#  05/12/2014 - sc Finalize 
 #
 #  03/7/2014  sc  Initial development
 #

@@ -34,7 +34,6 @@
 #
 #      0:  Successful completion
 #      1:  Fatal error occurred
-#      2:  Non-fatal error occurred
 #
 #  Assumes:  Nothing
 #
@@ -184,7 +183,7 @@ cp -p ${INPUT_FILE_DEFAULT} ${ARCHIVEDIR}/${ARC_FILE}
 #
 # Touch the "lastrun" file to note when the load was run.
 #
-#touch ${LASTRUN_FILE}
+touch ${LASTRUN_FILE}
 
 #
 # run postload cleanup and email logs
