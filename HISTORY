@@ -1,3 +1,10 @@
+TAG: rvload-5-1-9-2
+DATE: 07/17/2014
+STAFF: sc
+CHANGES: production release tag
+1) Install - update 'rohan' to 'lindon'
+2) uncomment 'touch ${LASTRUN_FILE}'
+
 TAG: rvload-5-1-9-1
 DATE: 07/03/2014
 STAFF: sc

@@ -72,7 +72,7 @@ fi
 # the same input file path on hobbiton where the input file is published.
 # The input directory should be locked down to protect the symbolic link.
 #
-if [ ${SERVER_NAME} = "rohan" ]
+if [ ${SERVER_NAME} = "lindon" ]
 then
     rm -f ${INPUT_FILE_DEFAULT}
     ln -s /hobbiton${INPUT_FILE_DEFAULT} ${INPUT_FILE_DEFAULT}
