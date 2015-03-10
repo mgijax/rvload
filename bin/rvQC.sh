@@ -140,20 +140,24 @@ ${RVLOAD_QC}  ${INPUT_FILE}
 STAT=$?
 if [ ${STAT} -eq 1 ]
 then
-    echo "Fatal initialization error. See ${SANITY_RPT}\n" | tee -a ${LOG}
+    echo "Fatal initialization error. See ${SANITY_RPT}" | tee -a ${LOG}
+    echo "" | tee -a ${LOG}
     exit ${STAT}
 fi
 
 if [ ${STAT} -eq 2 ]
 then
-    echo "\nInvalid OBO format $1"
-    echo "Version ${OBO_FILE_VERSION} expected\n"
+    echo ""
+    echo "Invalid OBO format $1"
+    echo "Version ${OBO_FILE_VERSION} expected"
+    echo ""
     exit ${STAT}
 fi
 
 if [ ${STAT} -eq 3 ]
 then
-    echo "Fatal sanity errors detected. See ${SANITY_RPT}\n" | tee -a ${LOG}
+    echo "Fatal sanity errors detected. See ${SANITY_RPT}" | tee -a ${LOG}
+    echo "" | tee -a ${LOG}
 else
     echo "No fatal sanity errors detected."
 fi
