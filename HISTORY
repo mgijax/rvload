@@ -1,3 +1,9 @@
+TAG: rvload-5-2-2-1
+DATE: 05/02/2015
+STAFF: dbm
+CHANGES:
+1) bin/rvQC.sh: Changed "no sanity error" message to avoid checklog warnings
+
 TAG: rvload-tr11750-BP
 DATE: 05/28/2015
 STAFF: kstone
