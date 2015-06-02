@@ -159,7 +159,7 @@ then
     echo "Fatal sanity errors detected. See ${SANITY_RPT}" | tee -a ${LOG}
     echo "" | tee -a ${LOG}
 else
-    echo "No fatal sanity errors detected."
+    echo "No fatal errors detected."
 fi
 
 echo "" >> ${LOG}
