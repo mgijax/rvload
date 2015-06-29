@@ -109,10 +109,7 @@ export JOBSTREAM
 #  The name of the load for the subject of an email notification
 MAIL_LOADNAME="Relationship Vocabulary Load"
 
-#  Recipient list for mailing the log files (comma-separated)
-MAIL_LOG_PROC="sc"
-
-export MAIL_LOADNAME MAIL_LOG_PROC
+export MAIL_LOADNAME
 
 INSTALLDIR=${RVLOAD}
 export INSTALLDIR
