@@ -1,3 +1,9 @@
+TAG: rvload-6-0-6-1
+DATE: 10/25/2016
+STAFF: lec 
+CHANGES:
+bin/rvload.sh : fixed documentation
+
 TAG: rvload-6-0-4-1
 DATE: 06/16/2016
 STAFF: lec 

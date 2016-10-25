@@ -168,7 +168,7 @@ echo "Running RV Vocabulary load"  | tee -a ${LOG_DIAG}
 ${VOCLOAD}/runOBOIncLoad.sh ${CONFIG_VOCLOAD} >> ${LOG_PROC}
 STAT=$?
 echo "runOBOIncLoad.sh STAT: ${STAT}"
-checkStatus ${STAT} "${VOCLOAD}/runOBOFullLoad.sh ${CONFIG_VOCLOAD}"
+checkStatus ${STAT} "${VOCLOAD}/runOBOIncLoad ${CONFIG_VOCLOAD}"
 
 #
 # Archive a copy of the input file, adding a timestamp suffix.
