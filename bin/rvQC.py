@@ -232,7 +232,7 @@ def runSanityChecks ():
 	# check ID format
 	hasId = currentStanzaDict.has_key('id')
 	if not hasId:
-	    invalidIDs.append('stanza without id')
+	    invalidIDList.append('stanza without id. Stanza # %s  stanza: %s' % (s, currentStanzaDict))
 	    continue
 	id = currentStanzaDict['id'][0]
 	#print id
