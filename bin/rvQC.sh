@@ -142,7 +142,7 @@ date >> ${LOG}
 echo "Run sanity checks on the input file" >> ${LOG}
 
 # run the sanity checks on the RV obo file 
-${RVLOAD_QC}  ${INPUT_FILE}
+${PYTHON} ${RVLOAD_QC}  ${INPUT_FILE}
 STAT=$?
 if [ ${STAT} -eq 1 ]
 then
